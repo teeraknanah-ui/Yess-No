@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Valentine 💕</title>
+
+<style>
+  body{
+    margin:0;
+    background:#fff0f5;
+    font-family: Arial, sans-serif;
+    display:flex;
+    justify-content:center;
+  }
+
+  .mobile{
+    width:100%;
+    max-width:430px;
+    padding:16px;
+    text-align:center;
+  }
+
+  video{
+    width:100%;
+    border-radius:18px;
+  }
+
+  .buttons{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+  }
+
+  button{
+    font-size:20px;
+    padding:12px 24px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+  }
+
+  #yes{
+    background:#ff4d6d;
+    color:white;
+  }
+
+  #no{
+    background:#ddd;
+    position:relative;
+  }
+
+  .hidden{
+    display:none;
+  }
+
+  .message{
+    font-size:22px;
+    margin-top:20px;
+  }
+
+  .pop{
+    animation: pop 0.6s ease-out forwards;
+  }
+
+  @keyframes pop{
+    0%{transform:scale(0); opacity:0;}
+    100%{transform:scale(1); opacity:1;}
+  }
+
+  img{
+    width:260px;
+    margin-top:20px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="mobile">
+
+  <!-- VIDEO -->
+  <video id="video" playsinline autoplay muted>
+    <source src="Valentine.mp4" type="video/mp4">
+  </video>
+
+  <!-- BUTTONS -->
+  <div id="buttons" class="buttons hidden">
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
+  </div>
+
+  <!-- TEXT MESSAGE -->
+  <div id="text" class="message hidden"></div>
+
+  <!-- IMAGE -->
+  <img id="shinchan" src="shinchan.jpg" class="hidden">
+
+</div>
+
+<script>
+  const video = document.getElementById("video");
+  const buttons = document.getElementById("buttons");
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const text = document.getElementById("text");
+  const img = document.getElementById("shinchan");
+
+  let noCount = 0;
+
+  // Show buttons after video ends
+  video.onended = () => {
+    buttons.classList.remove("hidden");
+  };
+
+  // No button logic
+  noBtn.onclick = () => {
+    noCount++;
+
+    if(noCount <= 3){
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    } else {
+      noBtn.disabled = true;
+      noBtn.innerText = "Invalid ❌";
+      text.innerText = "Your rejection has been rejected";
+      text.classList.remove("hidden");
+    }
+  };
+
+  // Yes button logic
+  yesBtn.onclick = () => {
+    buttons.classList.add("hidden");
+    text.innerText = "हमारा वैलेंटाइन बनने के लिए शुक्रिया 💖";
+    text.classList.remove("hidden");
+
+    // Show image after few seconds
+    setTimeout(() => {
+      img.classList.remove("hidden");
+      img.classList.add("pop");
+    }, 4000); // 4 seconds
+  };
+</script>
+
+</body>
+</html>
